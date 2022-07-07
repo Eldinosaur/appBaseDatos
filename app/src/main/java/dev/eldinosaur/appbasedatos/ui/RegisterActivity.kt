@@ -2,9 +2,13 @@ package dev.eldinosaur.appbasedatos.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import dev.eldinosaur.appbasedatos.R
 import dev.eldinosaur.appbasedatos.databinding.ActivityRegisterBinding
 import dev.eldinosaur.appbasedatos.ui.database.AppDatabase
+import dev.eldinosaur.appbasedatos.ui.model.Pet
+import java.lang.reflect.Executable
+import java.util.concurrent.Executors
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -27,8 +31,21 @@ class RegisterActivity : AppCompatActivity() {
         binding.edtNombre.requestFocus()
     }
     private fun events(){
+        val nombre = binding.edtNombre.text.toString()
+        val raza = binding.edtRaza.text.toString()
+        val preferencias = binding.edtPreferencias.text.toString()
+
         binding.btnGrabar.setOnClickListener{
-            
+            Executors.newSingleThreadExecutor().execute{
+                appDatabase.petDao().insert(Pet(0, nombre,raza, preferencias))
+                runOnUiThread{
+                    Toast.makeText(this, "Mascota Registrada", Toast.LENGTH_LONG).show()
+                    onBackPressed()
+                }
+            }
         }
+    }
+    private fun agregar(pet:Pet){
+
     }
 }
