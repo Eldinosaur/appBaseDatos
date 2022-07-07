@@ -1,11 +1,12 @@
-package dev.eldinosaur.appbasedatos
+package dev.eldinosaur.appbasedatos.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import dev.eldinosaur.appbasedatos.R
 
-class PetsActivity : AppCompatActivity() {
+class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_pets)
+        setContentView(R.layout.activity_register)
     }
 }
