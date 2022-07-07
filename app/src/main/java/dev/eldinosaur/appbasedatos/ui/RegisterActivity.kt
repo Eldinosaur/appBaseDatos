@@ -27,6 +27,8 @@ class RegisterActivity : AppCompatActivity() {
         binding.edtNombre.requestFocus()
     }
     private fun events(){
-        
+        binding.btnGrabar.setOnClickListener{
+            
+        }
     }
 }
