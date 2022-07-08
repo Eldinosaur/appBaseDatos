@@ -38,4 +38,8 @@ class PetAdapter(var pets:List<Pet> = emptyList()):RecyclerView.Adapter<PetAdapt
     override fun getItemCount(): Int {
         return pets.size
     }
+    fun updatePets(pets:List<Pet>){
+        this.pets = pets
+        notifyDataSetChanged()
+    }
 }

@@ -31,11 +31,12 @@ class RegisterActivity : AppCompatActivity() {
         binding.edtNombre.requestFocus()
     }
     private fun events(){
-        val nombre = binding.edtNombre.text.toString()
-        val raza = binding.edtRaza.text.toString()
-        val preferencias = binding.edtPreferencias.text.toString()
 
         binding.btnGrabar.setOnClickListener{
+            val nombre = binding.edtNombre.text.toString()
+            val raza = binding.edtRaza.text.toString()
+            val preferencias = binding.edtPreferencias.text.toString()
+
             Executors.newSingleThreadExecutor().execute{
                 appDatabase.petDao().insert(Pet(0, nombre,raza, preferencias))
                 runOnUiThread{
