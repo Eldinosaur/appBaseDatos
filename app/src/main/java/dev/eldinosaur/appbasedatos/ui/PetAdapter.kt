@@ -15,6 +15,10 @@ import dev.eldinosaur.appbasedatos.ui.model.Pet
 
 class PetAdapter(var pets:List<Pet> = emptyList()):RecyclerView.Adapter<PetAdapter.PetAdapterViewHolder>() {
 
+    //funciones para controlar la edicion y eliminacion
+    lateinit var setOnClickListenerPetEdit : (Pet) -> Unit
+    lateinit var setOnClickListenerPetDelete : (Pet) -> Unit
+
     //Crear viewholder
     inner class PetAdapterViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
         private var bindingPet:ItemPetsBinding = ItemPetsBinding.bind(itemView)
@@ -22,6 +26,13 @@ class PetAdapter(var pets:List<Pet> = emptyList()):RecyclerView.Adapter<PetAdapt
             bindingPet.txtNombre.text = pet.nombre
             bindingPet.txtRaza.text = pet.raza
             bindingPet.txtPreferencias.text = pet.preferencias
+
+            bindingPet.btnEditar.setOnClickListener{
+                setOnClickListenerPetEdit(pet)
+            }
+            bindingPet.btnEliminar.setOnClickListener {
+                setOnClickListenerPetDelete(pet)
+            }
         }
     }
 

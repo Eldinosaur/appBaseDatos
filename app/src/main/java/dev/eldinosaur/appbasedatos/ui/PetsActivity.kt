@@ -3,8 +3,11 @@ package dev.eldinosaur.appbasedatos.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import dev.eldinosaur.appbasedatos.databinding.ActivityPetsBinding
 import dev.eldinosaur.appbasedatos.ui.database.AppDatabase
+import dev.eldinosaur.appbasedatos.ui.utils.Constants
+import java.util.concurrent.Executors
 
 class PetsActivity : AppCompatActivity() {
 
@@ -37,6 +40,23 @@ class PetsActivity : AppCompatActivity() {
     }
     private fun setupAdapter(){
         binding.rvPets.adapter = adapter
+        adapter.setOnClickListenerPetEdit = {
+            var bundle = Bundle().apply{
+                putSerializable(Constants.KEY_PET, it)
+            }
+            val intent = Intent(this,RegisterActivity::class.java).apply {
+                putExtras(bundle)
+            }
+            startActivity(intent)
+        }
+        adapter.setOnClickListenerPetDelete = {
+            Executors.newSingleThreadExecutor().execute{
+                appDatabase.petDao().delete(it)
+                runOnUiThread{
+                    Toast.makeText(this, "Mascota Eliminada", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
     }
     private fun loadData(){
         appDatabase.petDao().getPets().observe(this,{
